@@ -40,7 +40,7 @@ Players, coaches, and analysts can use this to understand where deficits are lea
 
 #### Counts by Position (Bar Chart)
 
-<iframe src="assets/images/position_counts.html" width="800" height="600" frameBorder="0"></iframe>
+<iframe src="assets/images/position_counts.html" width="400%" height="1000" frameBorder="0"></iframe>
 
 The distribution is almost uniform (top/mid/bot/jng ≈ 19.7 – 19.9%, sup ≈ 20.8% which is slightly higher).  
 This indicates that the sample sizes for each position are relatively balanced, so the future data analyzing result will not be unstable due to a small sample size for a certain position. However, it should also be noted that the sample size for **sup** is slightly larger, so its standard error is slightly smaller.
@@ -49,7 +49,7 @@ This indicates that the sample sizes for each position are relatively balanced, 
 
 #### The ECDF of 15-minute Gold Diff
 
-<iframe src="assets/images/ecdf_gold15.html" width="500%" height="2000"></iframe>
+<iframe src="assets/images/ecdf_gold15.html" width="400%" height="1000"></iframe>
 
 The curve is **S-shaped**, with the main body concentrated in the range of -2500 to -500, and there is a long tail on the left.  
 This means that “lightly/moderately behind” is more common, and samples of “severely behind” are rare. If we do not classify them, and a certain position appears more frequently in the “lightly behind” games, it may lead to an overestimation.  
