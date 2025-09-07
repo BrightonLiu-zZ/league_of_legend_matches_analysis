@@ -1,4 +1,4 @@
-## Step 1
+## Introduction
 
 ### Goal
 League of Legends (LoL) is a popular competitive game where players control different champions, each tied to a specific position on the team. Because position balance and impact are often hot topics in the community, I chose to investigate a position-related question that interested me most, using data exploration across the first four steps of this website: *When a team is behind, which position hurts its team’s chance to win the least?*  
@@ -23,7 +23,7 @@ Each game contributes one row per player and 2 rows for team statistics, which r
 Players, coaches, and analysts can use this to understand where deficits are least costly ( i.e., which role can *“be behind and still not sink the game”* ) to inform draft, lane assignments, and mid-game decision making.
 
 
-## Step 2
+## Data Cleaning and Exploratory Data Analysis
 
 ### Data Cleaning
 **For the data cleaning part, I have done these steps:**
@@ -104,7 +104,7 @@ Under the condition that *“when the team is behind and the position’s kill i
 - The **bottom lane (BOT)** is the weakest.  
 - Only when severely behind, the performance of **TOP** is exceptionally high.
 
-## Step 3
+## Assessment of Missingness
 ### NMAR Analysis
 
 <iframe src="assets/images/nan_counts.html" width="80%" height="500"></iframe>
@@ -164,10 +164,9 @@ The missing rates of Blue and Red are both 0.1508.
 The absence has nothing to do with the team side.
 
 
-## Step 4
-### Hypothesis Testing
+## Hypothesis Testing
 
-#### Question I want to investigate
+### Question I want to investigate
 In the game where *“the team is behind (`deficit15 == True`) and the position’s kill is less than the opponent (`has_more_kills == False`),* is the win rate of the **support (SUP)** role higher than that of other positions?
 
 ---
@@ -175,7 +174,7 @@ In the game where *“the team is behind (`deficit15 == True`) and the position�
 ### Groups
 We compare **SUP vs non-SUP**, stratified by 15-minute gold-deficit bins:
 
-- Severe: \((-\infty, -2500)\)  
+- Severe: \((-∞, -2500)\)  
 - Moderate: \([-2500, -1500)\)  
 - Mild: \([-1500, -500)\)  
 - Slight: \([-500, 0)\)
@@ -183,8 +182,8 @@ We compare **SUP vs non-SUP**, stratified by 15-minute gold-deficit bins:
 ---
 
 #### Hypotheses (one-sided)
-- **\(H_0\):** Within each deficit bin, SUP and non-SUP have the **same** comeback rate.  
-- **\(H_A\):** Within each deficit bin, the SUP comeback rate is **higher**.
+- **H0:** Within each deficit bin, SUP and non-SUP have the **same** comeback rate.  
+- **HA:** Within each deficit bin, the SUP comeback rate is **higher**.
 
 ---
 
@@ -209,8 +208,7 @@ The permutation test yielded a p-value of **0.001** (with \(B = 1000\)), which i
 The data provides strong evidence to reject \(H_0\).  
 In other words, in matches where the team was behind and the position’s kills were lower, the **comeback rate of the support role** was significantly higher than that of the non-support roles.
 
-## Step 5
-### Framing a Prediction Problem
+## Framing a Prediction Problem
 
 #### Goal (what to predict)
 I frame this as a **binary classification task**: given information available by the 15-minute mark of a match, predict whether that team will win the game  
@@ -256,9 +254,7 @@ ROC AUC is threshold-independent and works well even with class imbalance.
 I do **not** use accuracy as the primary metric, since it depends on an arbitrary cutoff and can be misleading.  
 For interpretability, I also report accuracy with confusion matrices, but model selection is based on ROC AUC.
 
-## Step 6
-
-### Baseline Model
+## Baseline Model
 
 #### Model
 I built a simple **logistic regression** as the baseline.  
@@ -272,13 +268,11 @@ We did not include `side` to avoid leakage and to leave it for fairness analysis
 
 The model is defined as:
 
-$$
-P(\text{win}) = \frac{1}{1 + \exp \big( - (b_0 + b_1 \cdot \text{golddiffat15} + b_2 \cdot \text{csdiffat15}) \big)}
-$$
+P(win) = 1 / (1 + exp( - ( b₀ + b₁ * golddiffat15 + b₂ * csdiffat15 ) ))
 
-- \(b_0\) is the intercept (bias).  
-- \(b_1\) is the coefficient for gold difference at 15 minutes.  
-- \(b_2\) is the coefficient for CS difference at 15 minutes.  
+- b0 is the intercept (bias).  
+- b1 is the coefficient for gold difference at 15 minutes.  
+- b2 is the coefficient for CS difference at 15 minutes.  
 
 ---
 
@@ -302,8 +296,7 @@ A ROC AUC around **0.73** means if we randomly pick a winning team and a losing 
 #### What the model would look like (coefficients I got)
 P(win) = 1 / (1 + exp( -(-0.000003 + 0.000255 * golddiffat15 + 0.101135 * csdiffat15) ))
 
-## Step 7
-### Final Model
+## Final Model
 
 #### What we tried to add (and why)
 - **Severity bins for 15-minute deficits (gold and CS):** We expected non-linear threshold effects (being slightly behind vs. severely behind may have very different impacts).  
@@ -360,8 +353,7 @@ P(win) = 1 / (1 + exp( -(-0.000003 + 0.000255 * golddiffat15 + 0.101135 * csdiff
 <iframe src="assets/images/confusion_matrix.html" width="80%" height="500"></iframe>
 I want to end the whole model selection section with this confusion matrix for the baseline model to clarify the actual performance of our final model:  Although its overall ROC AUC score is decent, the model still misclassify fair amount of games, so there is still room for improvement, like by adding more useful features to it. 
 
-## Step 8
-### Fairness Analysis
+## Fairness Analysis
 
 #### Question
 Here I am trying to answer this question:  
@@ -390,9 +382,9 @@ T = AUC(Blue) – AUC(Red)
 ---
 
 #### Hypotheses
-- **\(H_0\):** AUC(Blue) = AUC(Red).  
+- **H0:** AUC(Blue) = AUC(Red).  
   Any observed difference is due to random variation.  
-- **\(H_A\):** AUC(Blue) ≠ AUC(Red).  
+- **HA:** AUC(Blue) ≠ AUC(Red).  
   (We report a two-sided test; a one-sided “Blue worse” version is also shown.)
 
 ---
@@ -401,14 +393,14 @@ T = AUC(Blue) – AUC(Red)
 We perform a **permutation test** on the test set:  
 
 - Keep true labels and predicted probabilities fixed.  
-- Randomly shuffle the Blue/Red group labels many times (\(B = 2000\)).  
+- Randomly shuffle the Blue/Red group labels many times (B = 2000).  
 - Recompute the AUC difference each time.  
 - Compare the observed difference against this null distribution.  
 
 ---
 
 #### Results
-- \(\text{AUC}(\text{Blue}) = 0.626\), \(\text{AUC}(\text{Red}) = 0.628\)  
+- AUC(Blue) = 0.626, AUC(Red) = 0.628  
   → Observed difference = \(-0.0014\).  
 
 - Two-sided \(p\)-value = 0.9330.  
