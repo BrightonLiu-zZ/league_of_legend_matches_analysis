@@ -120,13 +120,11 @@ Since most leagues just do not provide data for golddiffat15, the missing mechan
 
 #### What we test
 We are concerned about whether the absence of the 15-minute money difference (`golddiffat15`) is dependent on certain observed variables.  
-Let \( Y = 1\{\text{`golddiffat15` is NA}\} \).
+Let Y = 1{ golddiffat15 is NA }.
 
 The test statistic used is **TVD (Total Variation Distance)**, which compares the distribution differences of “missing group” vs “non-missing group” on a categorical variable:
 
-$$
-\text{TVD} = \tfrac{1}{2} \sum_i \lvert p_i - q_i \rvert
-$$
+TVD = (1/2) * Σ_i | p_i – q_i |
 
 ---
 
@@ -195,11 +193,8 @@ We compare **SUP vs non-SUP**, stratified by 15-minute gold-deficit bins:
 #### Test Statistic
 Weighted stratified difference in win rates:
 
-$$
-T = \sum_b w_b \big(\hat{p}_{\text{SUP},b} - \hat{p}_{\text{nonSUP},b}\big), 
-\qquad 
-w_b = \frac{n_b}{\sum_b n_b}
-$$
+T = Σ_b [ w_b * (p̂_SUP,b – p̂_nonSUP,b) ]
+where w_b = n_b / Σ_b n_b
 
 ---
 
@@ -305,9 +300,7 @@ A ROC AUC around **0.73** means if we randomly pick a winning team and a losing 
 ---
 
 #### What the model would look like (coefficients I got)
-$$
-P(\text{win}) = \frac{1}{1 + \exp \big( -(-0.000003 + 0.000255 \cdot \text{golddiffat15} + 0.101135 \cdot \text{csdiffat15}) \big)}
-$$
+P(win) = 1 / (1 + exp( -(-0.000003 + 0.000255 * golddiffat15 + 0.101135 * csdiffat15) ))
 
 ## Step 7
 ### Final Model
@@ -360,9 +353,8 @@ Therefore, we choose the **baseline logistic regression** as the final model for
 ---
 
 #### Final model formula (for the website)
-$$
-P(\text{win}) = \frac{1}{1 + \exp \Big( - \big( -0.000003 + 0.000255 \cdot \text{golddiffat15} + 0.101135 \cdot \text{csdiffat15} \big) \Big) }
-$$
+
+P(win) = 1 / (1 + exp( -(-0.000003 + 0.000255 * golddiffat15 + 0.101135 * csdiffat15) ))
 
 
 <iframe src="assets/images/confusion_matrix.html" width="80%" height="500"></iframe>
@@ -393,16 +385,14 @@ We test whether our final model treats the two sides differently.
 #### Test Statistic
 Difference in AUC:
 
-$$
-T = \text{AUC}(\text{Blue}) - \text{AUC}(\text{Red})
-$$
+T = AUC(Blue) – AUC(Red)
 
 ---
 
 #### Hypotheses
-- **\(H_0\):** \(\text{AUC}(\text{Blue}) = \text{AUC}(\text{Red})\).  
+- **\(H_0\):** AUC(Blue) = AUC(Red).  
   Any observed difference is due to random variation.  
-- **\(H_A\):** \(\text{AUC}(\text{Blue}) \neq \text{AUC}(\text{Red})\).  
+- **\(H_A\):** AUC(Blue) ≠ AUC(Red).  
   (We report a two-sided test; a one-sided “Blue worse” version is also shown.)
 
 ---
