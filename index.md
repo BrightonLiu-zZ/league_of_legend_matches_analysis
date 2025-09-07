@@ -40,7 +40,7 @@ Players, coaches, and analysts can use this to understand where deficits are lea
 
 #### Counts by Position (Bar Chart)
 
-<iframe src="assets/images/position_counts.html" width="400%" height="1000"></iframe>
+<iframe src="assets/images/position_counts.html" width="80%" height="500"></iframe>
 
 The distribution is almost uniform (top/mid/bot/jng ≈ 19.7 – 19.9%, sup ≈ 20.8% which is slightly higher).  
 This indicates that the sample sizes for each position are relatively balanced, so the future data analyzing result will not be unstable due to a small sample size for a certain position. However, it should also be noted that the sample size for **sup** is slightly larger, so its standard error is slightly smaller.
@@ -49,7 +49,7 @@ This indicates that the sample sizes for each position are relatively balanced, 
 
 #### The ECDF of 15-minute Gold Diff
 
-<iframe src="assets/images/ecdf_gold15.html" width="400%" height="1000"></iframe>
+<iframe src="assets/images/ecdf_gold15.html" width="80%" height="500"></iframe>
 
 The curve is **S-shaped**, with the main body concentrated in the range of -2500 to -500, and there is a long tail on the left.  
 This means that “lightly/moderately behind” is more common, and samples of “severely behind” are rare. If we do not classify them, and a certain position appears more frequently in the “lightly behind” games, it may lead to an overestimation.  
@@ -62,7 +62,7 @@ This means that “lightly/moderately behind” is more common, and samples of �
 
 #### Comeback Rate vs Position (Bar Chart)
 
-<iframe src="assets/images/position_comeback_rate.html" width="400%" height="1000""></iframe>
+<iframe src="assets/images/position_comeback_rate.html" width="80%" height="500"></iframe>
 
 Under the condition of “both gold and kills are behind the opponents,” **SUP ≈ 21%** is the highest, **JNG ≈ 15%** is second, **TOP/MID** are in the middle (≈ 12 – 14%), and **BOT ≈ 9%** is the lowest.
 
@@ -70,7 +70,7 @@ Under the condition of “both gold and kills are behind the opponents,” **SUP
 
 #### 15-minute Gold Deficit by Position (Box Plot)
 
-<iframe src="assets/images/position_gold_diff_box.html" width="400%" height="1000"></iframe>
+<iframe src="assets/images/position_gold_diff_box.html" width="80%" height="500"></iframe>
 
 
 
@@ -80,7 +80,7 @@ This mitigates the “confounding” concern, as the high comeback rate of **SUP
 
 ### Interesting Aggregates
 
-<iframe src="assets/images/pivot_rate_pct.html" width="400%" height="1000"></iframe>
+<iframe src="assets/images/pivot_rate_pct.html" width="80%" height="500"></iframe>
 
 #### Pattern
 The lighter the behind, the higher the comeback rate (for all positions from severe to slight, the rate is increasing, except for top from mild → slight).
@@ -123,7 +123,7 @@ The test statistic used is **TVD (Total Variation Distance)**, which compares th
 **\(H_0\):** The distribution of *league* is the same in the missing `golddiffat15` data group and the non-missing `golddiffat15` data group.  
 **\(H_A\):** The distribution of *league* is different between the two groups.
 
-<iframe src="assets/images/tvd_perm_hist_test_1.html" width="400%" height="1000"></iframe>
+<iframe src="assets/images/tvd_perm_hist_test_1.html" width="80%" height="500"></iframe>
 
 **Test result:**  
 Observed TVD = 0.9926, p-value ≈ 0.002 \((B = 500)\).
@@ -141,9 +141,11 @@ Therefore, the missing mechanism in `golddiffat15` is **MAR** rather than **NMAR
 **\(H_0\):** The distribution of *side* is the same in the missing `golddiffat15` group and the non-missing group.  
 **\(H_A\):** The distribution of *side* is not the same in the missing group and the non-missing group.
 
-<iframe src="assets/images/miss_rate_by_side.html" width="400%" height="1000"></iframe>
+<iframe src="assets/images/miss_rate_by_side.html" width="80%" height="500"></iframe>
 
-<iframe src="assets/images/tvd_perm_hist.html" width="400%" height="1000"></iframe>
+---
+
+<iframe src="assets/images/tvd_perm_hist.html" width="80%" height="500"></iframe>
 
 **Test result:**  
 Observed TVD = 0.0000, p-value = 1.000 \((B = 500)\).  
@@ -177,7 +179,7 @@ We compare **SUP vs non-SUP**, stratified by 15-minute gold-deficit bins:
 
 ---
 
-<iframe src="assets/images/tvd_perm_hist_test_1.html" width="400%" height="1000"></iframe>
+<iframe src="assets/images/tvd_perm_hist_test_1.html" width="80%" height="500"></iframe>
 
 #### Test Statistic
 Weighted stratified difference in win rates:
@@ -352,7 +354,7 @@ P(\text{win}) = \frac{1}{1 + \exp \Big( - \big( -0.000003 + 0.000255 \cdot \text
 \]
 
 
-<iframe src="assets/images/confusion_matrix.html" width="400%" height="1000"></iframe>
+<iframe src="assets/images/confusion_matrix.html" width="80%" height="500"></iframe>
 I want to end the whole model selection section with this confusion matrix for the baseline model to clarify the actual performance of our final model:  Although its overall ROC AUC score is decent, the model still misclassify fair amount of games, so there is still room for improvement, like by adding more useful features to it. 
 
 ## Step 8
@@ -412,7 +414,7 @@ We perform a **permutation test** on the test set:
 
 - One-sided \(p\)-value for “Blue worse” = 0.4738.  
 
-<iframe src="assets/images/fairness_perm_side_auc.html" width="400%" height="1000"></iframe>
+<iframe src="assets/images/fairness_perm_side_auc.html" width="80%" height="500"></iframe>
 
 ---
 
