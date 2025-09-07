@@ -1,7 +1,7 @@
 ## Step 1
 
 ### Goal
-I study: *When it's behind, which position hurts its team’s chance to win the least?*  
+League of Legends (LoL) is a popular competitive game where players control different champions, each tied to a specific position on the team. Because position balance and impact are often hot topics in the community, I chose to investigate a position-related question that interested me most, using data exploration across the first four steps of this website: *When a team is behind, which position hurts its team’s chance to win the least?*  
 In other words, in situations where the game is going poorly, and if a player is trailing their lane opponent in gold, which role (top, jng, mid, bot, sup) is the most “forgiving” for team win rate.
 
 ### Data
@@ -20,7 +20,7 @@ Each game contributes one row per player and 2 rows for team statistics, which r
 - `has_more_kills` (boolean): true when a player has more kills than their lane opponent.
 
 ### Why it matters
-Players, coaches, and analysts can use this to understand where deficits are least costly — i.e., which role can *“be behind and still not sink the game”* — to inform draft, lane assignments, and mid-game decision making.
+Players, coaches, and analysts can use this to understand where deficits are least costly ( i.e., which role can *“be behind and still not sink the game”* ) to inform draft, lane assignments, and mid-game decision making.
 
 
 ## Step 2
@@ -105,9 +105,20 @@ Under the condition that *“when the team is behind and the position’s kill i
 - Only when severely behind, the performance of **TOP** is exceptionally high.
 
 ## Step 3
-## Assessment of Missingness
+### NMAR Analysis
 
-### What we test
+<iframe src="assets/images/nan_counts.html" width="80%" height="500"></iframe>
+
+---
+
+<iframe src="assets/images/missing_rate_by_league.html" width="80%" height="500"></iframe>
+
+Since most leagues just do not provide data for golddiffat15, the missing mechanism is MAR and I am unable to calculate conditional mean, that's why I simply dropped those rows rather than performing conditional imputation in step 2. I will be careful about extrapolation on league = [ASCI, DCup, LDL, LPL, WLDs]
+
+
+### Assessment of Missingness
+
+#### What we test
 We are concerned about whether the absence of the 15-minute money difference (`golddiffat15`) is dependent on certain observed variables.  
 Let \( Y = 1\{\text{`golddiffat15` is NA}\} \).
 
@@ -119,7 +130,7 @@ The test statistic used is **TVD (Total Variation Distance)**, which compares th
 
 ---
 
-### Test 1
+#### Test 1
 **\(H_0\):** The distribution of *league* is the same in the missing `golddiffat15` data group and the non-missing `golddiffat15` data group.  
 **\(H_A\):** The distribution of *league* is different between the two groups.
 
@@ -137,7 +148,7 @@ Therefore, the missing mechanism in `golddiffat15` is **MAR** rather than **NMAR
 
 ---
 
-### Test 2
+#### Test 2
 **\(H_0\):** The distribution of *side* is the same in the missing `golddiffat15` group and the non-missing group.  
 **\(H_A\):** The distribution of *side* is not the same in the missing group and the non-missing group.
 
