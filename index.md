@@ -40,7 +40,7 @@ Players, coaches, and analysts can use this to understand where deficits are lea
 
 #### Counts by Position (Bar Chart)
 
-<iframe src="assets/images/position_counts.html"></iframe>
+<iframe src="assets/images/position_counts.html" width="60%" height="180"></iframe>
 
 The distribution is almost uniform (top/mid/bot/jng ≈ 19.7 – 19.9%, sup ≈ 20.8% which is slightly higher).  
 This indicates that the sample sizes for each position are relatively balanced, so the future data analyzing result will not be unstable due to a small sample size for a certain position. However, it should also be noted that the sample size for **sup** is slightly larger, so its standard error is slightly smaller.
@@ -49,7 +49,7 @@ This indicates that the sample sizes for each position are relatively balanced, 
 
 #### The ECDF of 15-minute Gold Diff
 
-<iframe src="assets/images/ecdf_gold15.html"></iframe>
+<iframe src="assets/images/ecdf_gold15.html" width="60%" height="180"></iframe>
 
 The curve is **S-shaped**, with the main body concentrated in the range of -2500 to -500, and there is a long tail on the left.  
 This means that “lightly/moderately behind” is more common, and samples of “severely behind” are rare. If we do not classify them, and a certain position appears more frequently in the “lightly behind” games, it may lead to an overestimation.  
@@ -62,7 +62,7 @@ This means that “lightly/moderately behind” is more common, and samples of �
 
 #### Comeback Rate vs Position (Bar Chart)
 
-<iframe src="assets/images/position_comeback_rate.html"></iframe>
+<iframe src="assets/images/position_comeback_rate.html" width="60%" height="180"></iframe>
 
 Under the condition of “both gold and kills are behind the opponents,” **SUP ≈ 21%** is the highest, **JNG ≈ 15%** is second, **TOP/MID** are in the middle (≈ 12 – 14%), and **BOT ≈ 9%** is the lowest.
 
@@ -70,7 +70,7 @@ Under the condition of “both gold and kills are behind the opponents,” **SUP
 
 #### 15-minute Gold Deficit by Position (Box Plot)
 
-<iframe src="assets/images/position_gold_diff_box.html"></iframe>
+<iframe src="assets/images/position_gold_diff_box.html" width="60%" height="180"></iframe>
 
 
 
@@ -80,7 +80,7 @@ This mitigates the “confounding” concern, as the high comeback rate of **SUP
 
 ### Interesting Aggregates
 
-<iframe src="assets/images/pivot_rate_pct.html"></iframe>
+<iframe src="assets/images/pivot_rate_pct.html" width="60%" height="180"></iframe>
 
 #### Pattern
 The lighter the behind, the higher the comeback rate (for all positions from severe to slight, the rate is increasing, except for top from mild → slight).
