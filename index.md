@@ -49,7 +49,7 @@ This indicates that the sample sizes for each position are relatively balanced, 
 
 #### The ECDF of 15-minute Gold Diff
 
-<iframe src="assets/images/ecdf_gold15.html" width="100%" height="520"></iframe>
+<iframe src="assets/images/ecdf_gold15.html" width="500%" height="2000"></iframe>
 
 The curve is **S-shaped**, with the main body concentrated in the range of -2500 to -500, and there is a long tail on the left.  
 This means that “lightly/moderately behind” is more common, and samples of “severely behind” are rare. If we do not classify them, and a certain position appears more frequently in the “lightly behind” games, it may lead to an overestimation.  
