@@ -40,7 +40,7 @@ Players, coaches, and analysts can use this to understand where deficits are lea
 
 #### Counts by Position (Bar Chart)
 
-<iframe src="assets/images/position_counts.html" width="100%" height="520"></iframe>
+<iframe src="assets/images/position_counts.html"></iframe>
 
 The distribution is almost uniform (top/mid/bot/jng ≈ 19.7 – 19.9%, sup ≈ 20.8% which is slightly higher).  
 This indicates that the sample sizes for each position are relatively balanced, so the future data analyzing result will not be unstable due to a small sample size for a certain position. However, it should also be noted that the sample size for **sup** is slightly larger, so its standard error is slightly smaller.
