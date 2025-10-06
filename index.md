@@ -26,8 +26,21 @@ layout: default
 .card h3 { margin:.2rem 0 .4rem; font-size:1.05rem; }
 .card p { margin:.3rem 0 .6rem; color: var(--muted); }
 
-.iframe-wrap { position:relative; width:100%; padding-top:62.5%; border-radius:10px; overflow:hidden; border:1px solid var(--line); background:#fff; }
-.iframe-wrap > iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+/* ------- Fix for cropped/scrolling interactive figures ------- */
+.card-grid.keyfig { grid-template-columns: 1fr; }      /* single column so Plotly fits */
+.fig-embed {
+  display:block;
+  width:100%;
+  height: 520px;                 /* fits typical 700x450 Plotly exports */
+  border:0;
+  background:#fff;
+  border-radius:10px;
+  outline: 1px solid var(--line);
+}
+/* On very wide screens, allow two columns while keeping enough width */
+@media (min-width: 1500px) {
+  .card-grid.keyfig { grid-template-columns: repeat(2, minmax(680px, 1fr)); }
+}
 
 details { border:1px dashed var(--line); border-radius:10px; padding:.8rem; }
 details summary { cursor:pointer; font-weight:600; }
@@ -68,30 +81,24 @@ Jungle (JNG) is typically second; Bottom (BOT) is most fragile. In severe defici
 
 <div class="section">
 <h2>Key Figures (interactive)</h2>
-<div class="card-grid">
+<div class="card-grid keyfig">
 
   <div class="card">
     <h3>Comeback rate by role</h3>
     <p class="subtle">SUP ≈ highest; JNG ≈ second; BOT ≈ lowest when behind at 15:00.</p>
-    <div class="iframe-wrap">
-      <iframe src="assets/images/position_comeback_rate.html" loading="lazy"></iframe>
-    </div>
+    <iframe class="fig-embed" src="assets/images/position_comeback_rate.html" loading="lazy"></iframe>
   </div>
 
   <div class="card">
     <h3>Deficit severity × role</h3>
     <p class="subtle">Comeback rate rises as deficits get lighter; Top stands out only in severe cases.</p>
-    <div class="iframe-wrap">
-      <iframe src="assets/images/pivot_rate_pct.html" loading="lazy"></iframe>
-    </div>
+    <iframe class="fig-embed" src="assets/images/pivot_rate_pct.html" loading="lazy"></iframe>
   </div>
 
   <div class="card">
     <h3>Final model performance</h3>
     <p class="subtle">Baseline logistic regression (gold/CS at 15:00) — ROC&nbsp;AUC ≈ 0.73 test.</p>
-    <div class="iframe-wrap">
-      <iframe src="assets/images/confusion_matrix.html" loading="lazy"></iframe>
-    </div>
+    <iframe class="fig-embed" src="assets/images/confusion_matrix.html" loading="lazy"></iframe>
   </div>
 
 </div>
@@ -147,8 +154,3 @@ Jungle (JNG) is typically second; Bottom (BOT) is most fragile. In severe defici
 </div>
 
 <hr>
-
-<p class="footer-note">
-✨ Built for DSC80. Data: 2022 professional League of Legends.  
-Site: GitHub Pages + Cayman Theme. Interactive plots embedded from project outputs.
-</p>
